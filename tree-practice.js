@@ -79,7 +79,7 @@ function balancedTree (rootNode) {
   }
 }
 
-function getParentNode (rootNode, target, prevNode = null) {
+function getParentNode (rootNode, target, prevNode = null, targetNode = []) {
   //if node.val equal to target return null
   //if node.left or node.right value is equal to the target return current node.
   //if node is null return;
@@ -90,13 +90,17 @@ function getParentNode (rootNode, target, prevNode = null) {
   //return undefined
   if(!rootNode) return;
   if((rootNode.val === target) && (prevNode === null)) return null;
-  if(rootNode.val === target) return prevNode;
+  if(rootNode.val === target) {
+    //console.log('targetFound!', prevNode.val);
+    targetNode.push(prevNode);
+    return targetNode;
+  }
   prevNode = rootNode;
-  getParentNode(rootNode.left, target, prevNode);
-  getParentNode(rootNode.right, target, prevNode);
+  getParentNode(rootNode.left, target, prevNode, targetNode);
+  getParentNode(rootNode.right, target, prevNode, targetNode);
 
-
-  return undefined;
+  //console.log(targetNode);
+  return targetNode[0];
 
 }
 
