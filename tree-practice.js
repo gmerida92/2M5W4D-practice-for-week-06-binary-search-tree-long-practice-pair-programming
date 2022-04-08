@@ -5,31 +5,78 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 // Practice problems on binary trees
 
 function findMinBST (rootNode) {
-  // Your code here
+  if(!rootNode.left) return rootNode.val;
+  return findMinBST(rootNode.left);
 }
 
 function findMaxBST (rootNode) {
-  // Your code here
+  if(!rootNode.right) return rootNode.val;
+  return findMaxBST(rootNode.right);
 }
 
-function findMinBT (rootNode) {
-  // Your code here
+function findMinBT (rootNode, minVal = rootNode.val) {
+  if(!rootNode) return minVal;
+
+  if(rootNode.val < minVal){
+    minVal = rootNode.val;
+  }
+
+  minVal = findMinBT(rootNode.left, minVal);
+  minVal = findMinBT(rootNode.right, minVal);
+
+  return minVal;
 }
 
-function findMaxBT (rootNode) {
-  // Your code here
+function findMaxBT (rootNode, maxVal = rootNode.val) {
+  if(!rootNode) return maxVal;
+
+  if(rootNode.val > maxVal){
+    maxVal = rootNode.val;
+  }
+
+  maxVal = findMaxBT(rootNode.left, maxVal);
+  maxVal = findMaxBT(rootNode.right, maxVal);
+
+  return maxVal;
 }
 
 function getHeight (rootNode) {
-  // Your code here
+  if(!rootNode) return -1
+
+  let leftDepth = getHeight(rootNode.left);
+  let rightDepth = getHeight(rootNode.right);
+  
+  if(leftDepth > rightDepth){
+    return (leftDepth + 1)
+  }
+  else
+  {
+    return (rightDepth + 1)
+  }
 }
 
 function countNodes (rootNode) {
-  // Your code here
+  if(!rootNode) return 0;
+
+  let leftCount = countNodes(rootNode.left);
+  let rightCount = countNodes(rootNode.right);
+
+  return rightCount + leftCount + 1;
 }
 
 function balancedTree (rootNode) {
-  // Your code here
+  if(!rootNode) return -1
+
+  let leftDepth = getHeight(rootNode.left);
+  let rightDepth = getHeight(rootNode.right);
+  
+  if(leftDepth > rightDepth){
+    return (leftDepth + 1)
+  }
+  else
+  {
+    return (rightDepth + 1)
+  }
 }
 
 function getParentNode (rootNode, target) {
