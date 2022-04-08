@@ -45,7 +45,7 @@ function getHeight (rootNode) {
 
   let leftDepth = getHeight(rootNode.left);
   let rightDepth = getHeight(rootNode.right);
-  
+
   if(leftDepth > rightDepth){
     return (leftDepth + 1)
   }
@@ -65,22 +65,39 @@ function countNodes (rootNode) {
 }
 
 function balancedTree (rootNode) {
-  if(!rootNode) return -1
+  // if(!rootNode) return -1
 
   let leftDepth = getHeight(rootNode.left);
   let rightDepth = getHeight(rootNode.right);
-  
-  if(leftDepth > rightDepth){
-    return (leftDepth + 1)
+
+  if(Math.abs(leftDepth - rightDepth) <= 1){
+    return true;
   }
   else
   {
-    return (rightDepth + 1)
+    return false;
   }
 }
 
-function getParentNode (rootNode, target) {
-  // Your code here
+function getParentNode (rootNode, target, prevNode = null) {
+  //if node.val equal to target return null
+  //if node.left or node.right value is equal to the target return current node.
+  //if node is null return;
+
+  //recurse left
+  //recurse right
+
+  //return undefined
+  if(!rootNode) return;
+  if((rootNode.val === target) && (prevNode === null)) return null;
+  if(rootNode.val === target) return prevNode;
+  prevNode = rootNode;
+  getParentNode(rootNode.left, target, prevNode);
+  getParentNode(rootNode.right, target, prevNode);
+
+
+  return undefined;
+
 }
 
 function inOrderPredecessor (rootNode, target) {
